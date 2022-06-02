@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/ntampakas/k8s-zc-argocd.git
+    targetRevision: HEAD
+    path: dummy
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    - CreateNamespace=false
+    automated:
+      selfHeal: true
+      prune: false

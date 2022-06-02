@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-testnet-geth
+spec:
+  ports:
+    - port: 8545
+  selector:
+    io.kompose.service: server-testnet-geth
+status:
+  loadBalancer: {}

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: prover-rpcd
+  name: prover-rpcd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: prover-rpcd
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: prover-rpcd
+    spec:
+      containers:
+        - env:
+            - name: BIND
+              value: '[::]:8545'
+            - name: PARAMS_PATH
+              value: /host/params
+          image: ghcr.io/privacy-scaling-explorations/zkevm-chain/prover:latest
+          name: prover-rpcd
+          resources: {}
+          volumeMounts:
+            - mountPath: /host
+              name: prover-rpcd-efs
+              readOnly: true
+      restartPolicy: Always
+      volumes:
+        - name: prover-rpcd-efs
+          persistentVolumeClaim:
+            claimName: efs-claim
+            readOnly: true
+status: {}

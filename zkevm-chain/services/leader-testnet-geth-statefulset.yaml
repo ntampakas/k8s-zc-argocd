@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: leader-testnet-geth
+  name: leader-testnet-geth
+spec:
+  selector:
+    matchLabels:
+      io.kompose.service: leader-testnet-geth
+  serviceName: leader-testnet-geth
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: leader-testnet-geth
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: leader-testnet-geth
+        image: ghcr.io/privacy-scaling-explorations/go-ethereum:latest
+        ports:
+          - containerPort: 30303
+        command: ["/host/init.sh"]
+        args: ["/host/l2-genesis-template.json", "/host/l2-genesis-generated.json", "--gcmode", "archive", "--networkid", "99", "--unlock", "$(MINER_ADDRESS)", "--password", "/dev/null", "--miner.gaslimit", "10000000", "--nodekeyhex", "abebb96d7d9bbc99730439f230afd0008c0e0cb93eafb6874fecb256572252a4"]
+        env:
+        - name: MINER_PRIV_KEY
+          valueFrom:
+            secretKeyRef:
+              name: leader-testnet-geth-secrets
+              key: miner_priv_key
+        - name: MINER_ADDRESS
+          valueFrom:
+            secretKeyRef:
+              name: leader-testnet-geth-secrets
+              key: miner_address
+        volumeMounts:
+        - name: leader-testnet-geth
+          mountPath: /root
+        - name: efs-storage
+          mountPath: /host
+      volumes:
+      - name: efs-storage
+        persistentVolumeClaim:
+          claimName: efs-claim
+  volumeClaimTemplates:
+  - metadata:
+      name: leader-testnet-geth
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "gp2"
+      resources:
+        requests:
+          storage: 15Gi

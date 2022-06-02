@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ntampakas/k8s-zc-argocd.git
-    targetRevision: dev
+    targetRevision: HEAD
     path: dummy
   destination:
     server: https://kubernetes.default.svc

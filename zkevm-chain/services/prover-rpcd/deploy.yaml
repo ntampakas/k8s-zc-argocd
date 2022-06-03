@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prover-rpcd
+  namespace: argocd
+  labels:
+    Name: prover-rpcd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/ntampakas/k8s-zc-argocd.git
+    targetRevision: HEAD
+    path: zkevm-chain/services/prover-rpcd
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=false
+    automated:
+      selfHeal: true
+      prune: false

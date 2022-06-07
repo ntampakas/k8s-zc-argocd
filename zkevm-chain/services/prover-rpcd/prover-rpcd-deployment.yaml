@@ -28,12 +28,12 @@ spec:
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
            - labelSelector:
-              matchExpressions:
-              - key: io.kompose.service
-                operator: In
-                values:
-                - prover-rpcd
-            topologyKey: "prover"
+               matchExpressions:
+               - key: io.kompose.service
+                 operator: In
+                 values:
+                 - prover-rpcd
+             topologyKey: "prover"
       containers:
         - env:
             - name: BIND

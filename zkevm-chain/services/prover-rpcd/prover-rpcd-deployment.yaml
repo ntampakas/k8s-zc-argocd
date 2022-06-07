@@ -42,13 +42,7 @@ spec:
               value: /host/params
           image: ghcr.io/privacy-scaling-explorations/zkevm-chain/prover:latest
           name: prover-rpcd
-          resources:
-            limits:
-              cpu: "1.5"
-              memory: 6Gi
-            requests:
-              cpu: "1"
-              memory: 4Gi
+          resources: {}
           volumeMounts:
             - mountPath: /host
               name: prover-rpcd-efs

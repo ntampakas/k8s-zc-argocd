@@ -9,7 +9,7 @@ metadata:
     io.kompose.service: prover-rpcd
   name: prover-rpcd
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       io.kompose.service: prover-rpcd
@@ -23,17 +23,17 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.service: prover-rpcd
-    spec:
-      affinity:
-        podAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-           - labelSelector:
-               matchExpressions:
-               - key: io.kompose.service
-                 operator: In
-                 values:
-                 - prover-rpcd
-             topologyKey: "prover"
+#    spec:
+#      affinity:
+#        podAffinity:
+#          requiredDuringSchedulingIgnoredDuringExecution:
+#           - labelSelector:
+#               matchExpressions:
+#               - key: io.kompose.service
+#                 operator: In
+#                 values:
+#                 - prover-rpcd
+#             topologyKey: "prover"
       containers:
         - env:
             - name: BIND

@@ -24,16 +24,20 @@ spec:
       labels:
         io.kompose.service: prover-rpcd
     spec:
-      affinity:
-        podAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-           - labelSelector:
-               matchExpressions:
-               - key: io.kompose.service
-                 operator: In
-                 values:
-                 - prover-rpcd
-             topologyKey: "prover"
+      toleration:
+      - key: "dedicated"
+        operator: "provers"
+        effect: "NoSchedule"
+#      affinity:
+#        podAffinity:
+#          requiredDuringSchedulingIgnoredDuringExecution:
+#           - labelSelector:
+#               matchExpressions:
+#               - key: io.kompose.service
+#                 operator: In
+#                 values:
+#                 - prover-rpcd
+#             topologyKey: "prover"
       containers:
         - env:
             - name: BIND

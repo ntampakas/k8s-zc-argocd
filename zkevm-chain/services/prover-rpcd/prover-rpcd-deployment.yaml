@@ -24,7 +24,7 @@ spec:
       labels:
         io.kompose.service: prover-rpcd
     spec:
-      toleration:
+      tolerations:
       - key: "dedicated"
         operator: "provers"
         effect: "NoSchedule"

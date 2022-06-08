@@ -26,8 +26,8 @@ spec:
     spec:
       containers:
         - env:
-            - name: DUMMY_PROVER
-              value: "1"
+            #- name: DUMMY_PROVER
+            #  value: "1"
             - name: ENABLE_FAUCET
               value: "1"
             - name: L1_BRIDGE

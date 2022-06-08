@@ -25,7 +25,7 @@ spec:
         io.kompose.service: prover-rpcd
     spec:
       tolerations:
-      - key: "provers"
+      - key: "provers1"
         operator: "Exists"
         effect: "NoSchedule"
       affinity:

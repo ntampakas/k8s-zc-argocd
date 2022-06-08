@@ -23,7 +23,7 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.service: prover-rpcd
-#    spec:
+    spec:
 #      affinity:
 #        podAffinity:
 #          requiredDuringSchedulingIgnoredDuringExecution:

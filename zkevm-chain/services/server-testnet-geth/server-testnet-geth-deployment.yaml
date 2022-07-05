@@ -1,47 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.26.0 (40646f47)
-  creationTimestamp: null
-  labels:
-    io.kompose.service: server-testnet-geth
   name: server-testnet-geth
 spec:
   replicas: 2
   selector:
     matchLabels:
-      io.kompose.service: server-testnet-geth
+      run: server-testnet-geth
   strategy:
     type: Recreate
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
-        io.kompose.service: server-testnet-geth
+        run: server-testnet-geth
     spec:
       containers:
-        - args:
-            - -c
-            - geth init /host/l2-genesis-generated.json && geth console --exec admin.addTrustedPeer\(\"$BOOTNODE\"\) && exec geth --gcmode archive --syncmode full --http --http.addr "[::]" --http.port 8545 --http.api eth,net,web3,debug --networkid 99 --bootnodes $BOOTNODE
-          command:
-            - /bin/sh
+        - args: ["--networkid", "99", "--syncmode", "light", "--nodiscover", "--http", "--http.addr", "[::]", "--http.port", "8545", "--http.corsdomain=*", "--http.vhosts=*", "--http.api eth,net,web3,debug"]
           env:
+            - name: MINER_ADDRESS
+              valueFrom:
+                secretKeyRef:
+                  name: leader-testnet-geth-secrets
+                  key: miner_address
+            - name: GENESIS
+              value: l2-testnet
             - name: BOOTNODE
-              value: enode://f28f5a7706e5aec836f3136feb7d5e7264a7f0da04ac4984f0ff2421ee1dd2b135894cf0d4f5ff8c412442b95b9bb0780a9c8a8c64de2d4a8c458586fdb20829@leader-testnet-geth:30303
-          image: ghcr.io/privacy-scaling-explorations/go-ethereum:latest
+              value: enode://61f076e9af396ecb5a0a8fb1a2c17491c3514f2abea0c228a3fcee49395339df2008fe201b37c7c0a565b775c5f8f5389b0b3de1701dc532c951a094af841cac@bootnode:30303
+          image: public.ecr.aws/s1x7c1c0/geth:latest
           name: server-testnet-geth
           resources: {}
-          volumeMounts:
-            - mountPath: /host
-              name: persistent-storage-efs
       restartPolicy: Always
-      volumes:
-        - name: persistent-storage-efs
-          persistentVolumeClaim:
-            claimName: efs-claim
 status: {}

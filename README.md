@@ -26,7 +26,6 @@
 ## Deploy zkevm-chain
    ```
    # kubectl apply -f zkevm-chain/services/secrets.yaml
-   # kubectl apply -f zkevm-chain/services/leader-testnet-geth/deploy.yaml
    # find . -type f -name 'deploy.yaml' -exec kubectl apply -f {} \;
    # kubectl get pods
    NAME                                   READY   STATUS    RESTARTS      AGE

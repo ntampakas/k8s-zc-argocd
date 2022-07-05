@@ -1,29 +1,6 @@
 # zkevm-chain in k8s (non prod version)
 ## Deploy zkevm-chain + support services to kubernetes cluster
 
-## Deploy EFS storage class, persistent volume claim, and persistent volume
-   - Edit pv.yaml and replace volumeHandle with the EFS id retrieved using:
-     ```
-     # aws efs describe-file-systems --query "FileSystems[*].FileSystemId" --output text
-     ```
-   - Apply configuration
-     ```
-     # kubectl apply -f efs
-     ```
-   - Upload all testnet files to EFS
-     F.x.:
-     ```
-     # kubectl apply -f aux/efs-pod.yaml
-     # kubectl get pods
-     NAME      READY   STATUS    RESTARTS   AGE
-     efs-pod   1/1     Running   0          37s
-     # for file in `ls ~/zkevm-chain/testnet`; do kubectl cp ~/zkevm-chain/testnet/$file efs-pod:/host; done
-     # kubectl exec -ti efs-pod -- ls host
-     geth.toml                 l1-genesis-template.json  params
-     init.sh                   l2-genesis-template.json
-     # kubectl delete -f aux/efs-pod.yaml
-     ```
-     
 ## Deploy metrics server
    ```
    # kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
@@ -36,7 +13,7 @@
    ```
    # kubectl create namespace argocd
    # kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-   kubectl exec -ti efs-pod -- ls host
+   # kubectl get pods -n argocd
    argocd-application-controller-0                     1/1     Running   0          42s
    argocd-applicationset-controller-66689cbf4b-m7vq8   1/1     Running   0          45s
    argocd-dex-server-66fc6c99cc-gxfvn                  1/1     Running   0          45s
@@ -49,6 +26,7 @@
 ## Deploy zkevm-chain
    ```
    # kubectl apply -f zkevm-chain/services/secrets.yaml
+   # kubectl apply -f zkevm-chain/services/leader-testnet-geth/deploy.yaml
    # find . -type f -name 'deploy.yaml' -exec kubectl apply -f {} \;
    # kubectl get pods
    NAME                                   READY   STATUS    RESTARTS      AGE

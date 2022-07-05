@@ -27,10 +27,29 @@ spec:
       containers:
       - name: leader-testnet-geth
         image: ghcr.io/privacy-scaling-explorations/go-ethereum:latest
-        ports:
-          - containerPort: 30303
-        command: ["/host/init.sh"]
-        args: ["/host/l2-genesis-template.json", "/host/l2-genesis-generated.json", "--gcmode", "archive", "--networkid", "99", "--unlock", "$(MINER_ADDRESS)", "--password", "/dev/null", "--miner.gaslimit", "10000000", "--nodekeyhex", "abebb96d7d9bbc99730439f230afd0008c0e0cb93eafb6874fecb256572252a4"]
+        args:
+          - --networkid
+          - "99"
+          - --nodiscover
+          - --gcmode
+          - archive
+          - --unlock
+          - --password
+          - /dev/null
+          - --allow-insecure-unlock
+          - --miner.gaslimit
+          - "4000000"
+          - --http
+          - --http.addr
+          - '[::]'
+          - --http.port
+          - "8545"
+          - --http.corsdomain=*
+          - --http.vhosts=*
+          - --http.api
+          - eth,net,web3,txpool,miner,debug
+          - --nodekeyhex
+          - abebb96d7d9bbc99730439f230afd0008c0e0cb93eafb6874fecb256572252a4
         env:
         - name: MINER_PRIV_KEY
           valueFrom:
@@ -42,15 +61,13 @@ spec:
             secretKeyRef:
               name: leader-testnet-geth-secrets
               key: miner_address
+        - name: BOOTNODE
+          value: enode://61f076e9af396ecb5a0a8fb1a2c17491c3514f2abea0c228a3fcee49395339df2008fe201b37c7c0a565b775c5f8f5389b0b3de1701dc532c951a094af841cac@bootnode:30303
+        - name: GENESIS
+          value: l2-testnet
         volumeMounts:
         - name: leader-testnet-geth
           mountPath: /root
-        - name: efs-storage
-          mountPath: /host
-      volumes:
-      - name: efs-storage
-        persistentVolumeClaim:
-          claimName: efs-claim
   volumeClaimTemplates:
   - metadata:
       name: leader-testnet-geth

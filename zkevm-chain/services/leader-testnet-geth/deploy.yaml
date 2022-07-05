@@ -7,8 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ntampakas/k8s-zc-argocd.git
-    #targetRevision: HEAD
-    targetRevision: bootnode
+    targetRevision: HEAD
     path: zkevm-chain/services/leader-testnet-geth
   destination:
     server: https://kubernetes.default.svc

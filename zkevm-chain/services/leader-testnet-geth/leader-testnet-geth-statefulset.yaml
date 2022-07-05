@@ -26,30 +26,8 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: leader-testnet-geth
-        image: ghcr.io/privacy-scaling-explorations/go-ethereum:latest
-        args:
-          - --networkid
-          - "99"
-          - --nodiscover
-          - --gcmode
-          - archive
-          - --unlock
-          - --password
-          - /dev/null
-          - --allow-insecure-unlock
-          - --miner.gaslimit
-          - "4000000"
-          - --http
-          - --http.addr
-          - '[::]'
-          - --http.port
-          - "8545"
-          - --http.corsdomain=*
-          - --http.vhosts=*
-          - --http.api
-          - eth,net,web3,txpool,miner,debug
-          - --nodekeyhex
-          - abebb96d7d9bbc99730439f230afd0008c0e0cb93eafb6874fecb256572252a4
+        image: public.ecr.aws/s1x7c1c0/geth:latest
+        args: ["--networkid", "99", "--nodiscover", "--gcmode", "archive", "--unlock", "$(MINER_ADDRESS)", "--password", "/dev/null", "--allow-insecure-unlock", "--miner.gaslimit", "4000000", "--http", "--http.addr", "[::]", "--http.port",  "8545", "--http.corsdomain=*", "--http.vhosts=*", "--http.api", "eth,net,web3,txpool,miner,debug", "--nodekeyhex", "abebb96d7d9bbc99730439f230afd0008c0e0cb93eafb6874fecb256572252a4"]
         env:
         - name: MINER_PRIV_KEY
           valueFrom:

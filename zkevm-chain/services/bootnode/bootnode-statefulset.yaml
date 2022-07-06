@@ -1,27 +1,16 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.26.0 (40646f47)
-  creationTimestamp: null
-  labels:
-    io.kompose.service: bootnode
   name: bootnode
 spec:
   selector:
     matchLabels:
-      io.kompose.service: bootnode
+      run: bootnode
   serviceName: bootnode
   replicas: 1
   template:
-    metadata:
-      annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
-        io.kompose.service: bootnode
+        run: bootnode
     spec:
       terminationGracePeriodSeconds: 10
       containers:

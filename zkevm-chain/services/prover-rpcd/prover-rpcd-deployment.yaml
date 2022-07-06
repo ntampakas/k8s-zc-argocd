@@ -29,11 +29,11 @@ spec:
                  - prover-rpcd
              topologyKey: "prover"
       containers:
-        - env:
+        - name: prover-rpcd
+          image: public.ecr.aws/s1x7c1c0/prover:latest
+          env:
             - name: BIND
               value: '[::]:8545'
-          image: ghcr.io/privacy-scaling-explorations/zkevm-chain/prover:latest
-          name: prover-rpcd
           resources:
             limits:
               cpu: "1.5"

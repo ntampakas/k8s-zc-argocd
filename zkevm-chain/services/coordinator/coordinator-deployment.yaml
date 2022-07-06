@@ -1,31 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.26.0 (40646f47)
-  creationTimestamp: null
-  labels:
-    io.kompose.service: coordinator
   name: coordinator
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: coordinator
+      run: coordinator
   strategy:
     type: Recreate
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
-        io.kompose.service: coordinator
+        run: coordinator
     spec:
       containers:
-        - env:
+        - name: coordinator
+          image: public.ecr.aws/s1x7c1c0/coordinator:latest
+          env:
             - name: LISTEN
               value: '[::]:8545'
             - name: RPC_SERVER_NODES
@@ -49,8 +41,4 @@ spec:
               value: "1"
             - name: PARAMS_PATH
               value: ${PARAMS_PATH:-/testnet/19.bin}
-          image: public.ecr.aws/s1x7c1c0/coordinator:latest
-          name: coordinator
-          resources: {}
       restartPolicy: Always
-status: {}

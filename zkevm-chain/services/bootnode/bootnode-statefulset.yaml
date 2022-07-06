@@ -9,6 +9,7 @@ spec:
   serviceName: bootnode
   replicas: 1
   template:
+    metadata:
       labels:
         run: bootnode
     spec:

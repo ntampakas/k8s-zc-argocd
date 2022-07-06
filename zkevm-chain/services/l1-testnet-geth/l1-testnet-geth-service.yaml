@@ -6,6 +6,6 @@ spec:
   ports:
     - port: 8545
   selector:
-    io.kompose.service: l1-testnet-geth
+    run: l1-testnet-geth
 status:
   loadBalancer: {}

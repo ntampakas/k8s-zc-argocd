@@ -26,9 +26,8 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: l1-testnet-geth
-        image: ghcr.io/privacy-scaling-explorations/go-ethereum:latest
-        command: ["/host/init.sh"]
-        args: ["/host/l1-genesis-template.json", "/root/genesis.json", "--networkid", "98", "--unlock", "$(MINER_ADDRESS)", "--password", "/dev/null", "--miner.gaslimit", "10000000", "--mine"]
+        image: public.ecr.aws/s1x7c1c0/geth:latest
+        args: ["--networkid", "98", "--unlock", "$(MINER_ADDRESS)", "--password", "/dev/null", "--allow-insecure-unlock", "--nodiscover", "--miner.gaslimit", "10000000", "--mine", "--http", "--http.addr", "[::]", "--http.port", "8545", "--http.corsdomain=*", "--http.vhosts=*", "--http.api eth,net,web3,debug"]
         env:
         - name: MINER_PRIV_KEY
           valueFrom:
@@ -40,15 +39,11 @@ spec:
             secretKeyRef:
               name: leader-testnet-geth-secrets
               key: miner_address
+        - name: GENESIS
+          value: l1-testnet
         volumeMounts:
         - name: l1-testnet-geth
           mountPath: /root
-        - name: efs-storage
-          mountPath: /host
-      volumes:
-      - name: efs-storage
-        persistentVolumeClaim:
-          claimName: efs-claim
   volumeClaimTemplates:
   - metadata:
       name: l1-testnet-geth

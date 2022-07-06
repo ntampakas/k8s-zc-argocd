@@ -6,6 +6,6 @@ spec:
   ports:
     - port: 8545
   selector:
-    io.kompose.service: prover-rpcd
+    run: prover-rpcd
 status:
   loadBalancer: {}

@@ -26,10 +26,14 @@ spec:
     spec:
       containers:
         - env:
-            #- name: DUMMY_PROVER
-            #  value: "1"
-            - name: ENABLE_FAUCET
-              value: "1"
+            - name: LISTEN
+              value: '[::]:8545'
+            - name: RPC_SERVER_NODES
+              value: server-testnet-geth:8545
+            - name: L2_RPC_URL
+              value: http://leader-testnet-geth:8545
+            - name: L1_RPC_URL
+              value: http://l1-testnet-geth:8545
             - name: L1_BRIDGE
               value: 0x936a70c0b28532aa22240dce21f89a8399d6ac60
             - name: L1_PRIV
@@ -37,30 +41,20 @@ spec:
                 secretKeyRef:
                   name: leader-testnet-geth-secrets
                   key: miner_priv_key
-            - name: L1_RPC_URL
-              value: http://l1-testnet-geth:8545
-            - name: L2_RPC_URL
-              value: http://leader-testnet-geth:8545
-            - name: LISTEN
-              value: '[::]:8545'
-            - name: PARAMS_PATH
-              value: /host/params
             - name: PROVER_RPCD_URL
               value: http://prover-rpcd:8545
-            - name: RPC_SERVER_NODES
-              value: server-testnet-geth:8545
-          image: ghcr.io/privacy-scaling-explorations/zkevm-chain/coordinator:latest
-          #image: public.ecr.aws/s1x7c1c0/coordinator:latest
+            - name: L1_PRIV
+              value: $(MINER_PRIV_KEY)
+            - name: PROVER_RPCD_URL
+              value: http://prover-rpcd:8545
+            - name: DUMMY_PROVER
+              value: {DUMMY_PROVER:-1}
+            - name: ENABLE_FAUCET
+              value: 1
+            - name: PARAMS_PATH
+              value: ${PARAMS_PATH:-/testnet/19.bin}
+          image: public.ecr.aws/s1x7c1c0/coordinator:latest
           name: coordinator
           resources: {}
-          volumeMounts:
-            - mountPath: /host
-              name: coordinator-efs
-              readOnly: true
       restartPolicy: Always
-      volumes:
-        - name: coordinator-efs
-          persistentVolumeClaim:
-            claimName: efs-claim
-            readOnly: true
 status: {}

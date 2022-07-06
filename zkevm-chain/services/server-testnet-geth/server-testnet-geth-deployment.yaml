@@ -15,7 +15,9 @@ spec:
         run: server-testnet-geth
     spec:
       containers:
-        - args: ["--networkid", "99", "--syncmode", "light", "--nodiscover", "--http", "--http.addr", "[::]", "--http.port", "8545", "--http.corsdomain=*", "--http.vhosts=*", "--http.api eth,net,web3,debug"]
+        - name: server-testnet-geth
+          image: public.ecr.aws/s1x7c1c0/geth:latest
+          args: ["--networkid", "99", "--syncmode", "light", "--nodiscover", "--http", "--http.addr", "[::]", "--http.port", "8545", "--http.corsdomain=*", "--http.vhosts=*", "--http.api eth,net,web3,debug"]
           env:
             - name: MINER_ADDRESS
               valueFrom:
@@ -26,8 +28,4 @@ spec:
               value: l2-testnet
             - name: BOOTNODE
               value: enode://61f076e9af396ecb5a0a8fb1a2c17491c3514f2abea0c228a3fcee49395339df2008fe201b37c7c0a565b775c5f8f5389b0b3de1701dc532c951a094af841cac@bootnode:30303
-          image: public.ecr.aws/s1x7c1c0/geth:latest
-          name: server-testnet-geth
-          resources: {}
       restartPolicy: Always
-status: {}

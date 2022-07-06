@@ -35,8 +35,8 @@ spec:
                   key: miner_priv_key
             - name: PROVER_RPCD_URL
               value: http://prover-rpcd:8545
-            - name: DUMMY_PROVER
-              value: ${DUMMY_PROVER:-1}
+            #- name: DUMMY_PROVER
+            #  value: ${DUMMY_PROVER:-1}
             - name: ENABLE_FAUCET
               value: "1"
             - name: PARAMS_PATH

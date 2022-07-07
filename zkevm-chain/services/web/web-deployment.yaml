@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
         - name: web
-          image: public.ecr.aws/s1x7c1c0/web:latest
+          #image: public.ecr.aws/s1x7c1c0/web:latest
+          image: public.ecr.aws/s1x7c1c0/web:v1.0
           ports:
             - containerPort: 8000
       restartPolicy: Always

@@ -4,7 +4,7 @@ metadata:
   name: web
   namespace: argocd
   annotations:
-    argocd-image-updater.argoproj.io/image-list: web
+    argocd-image-updater.argoproj.io/image-list: web=public.ecr.aws/s1x7c1c0/web:latest
 spec:
   project: default
   source:

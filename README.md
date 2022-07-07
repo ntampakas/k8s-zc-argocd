@@ -29,13 +29,14 @@
    # find . -type f -name 'deploy.yaml' -exec kubectl apply -f {} \;
    # kubectl get pods
    NAME                                   READY   STATUS    RESTARTS      AGE
-   coordinator-845cd548fd-xjd8r           1/1     Running   0             84s
-   l1-testnet-geth-0                      1/1     Running   0             75s
-   leader-testnet-geth-0                  1/1     Running   0             69s
-   prover-rpcd-78b8bfb7b6-qt8kf           1/1     Running   0             66s
-   server-testnet-geth-7d4485df55-kt9q5   1/1     Running   3 (32s ago)   57s
-   server-testnet-geth-7d4485df55-s4c9n   1/1     Running   3 (32s ago)   57s
-   web-5d76ff855b-5w66d                   1/1     Running   0  
+   bootnode-0                             1/1     Running   0          19h
+   coordinator-8589869649-gz2s8           1/1     Running   0          18h
+   l1-testnet-geth-0                      1/1     Running   0          19h
+   leader-testnet-geth-0                  1/1     Running   0          19h
+   prover-rpcd-65b666564-vh6js            1/1     Running   0          18h
+   server-testnet-geth-558d575c66-g55lv   1/1     Running   0          19h
+   server-testnet-geth-558d575c66-qqdc7   1/1     Running   0          19h
+   web-6d595dbbb4-qpklp                   1/1     Running   0          4m27s
    # kubectl get svc web
    NAME   TYPE           CLUSTER-IP      EXTERNAL-IP                                                                        PORT(S)                          AGE
    web    LoadBalancer   172.20.166.78   asasxzx349-704d9713bbsdx12c8482.elb.eu-central-1.amazonaws.com   80:31723/TCP,443:32717/TCP   2m44s

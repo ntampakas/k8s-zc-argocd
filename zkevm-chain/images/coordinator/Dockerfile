@@ -13,6 +13,6 @@ COPY coordinator/ /build
 WORKDIR /build
 RUN cargo build --bins --release --target-dir /target
 
-FROM scratch
+FROM alpine
 COPY --from=builder /target/release/coordinator /
 ENTRYPOINT ["/coordinator"]

@@ -17,7 +17,8 @@ RUN git clone --depth=1 -b v2022-07-05-3 https://github.com/pinkiebell/zkevm-cir
 WORKDIR /zkevm-circuits
 RUN cargo build --bins --release --target-dir /target --package prover
 
-FROM scratch
+#FROM scratch
+FROM alpine
 COPY --from=builder /target/release/prover_rpcd /
 COPY --from=builder /target/release/prover_cmd /
 COPY --from=builder /target/release/gen_params /

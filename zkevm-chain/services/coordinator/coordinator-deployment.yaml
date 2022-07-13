@@ -36,9 +36,9 @@ spec:
             - name: PROVER_RPCD_URL
               value: http://prover-rpcd:8545
             #- name: DUMMY_PROVER
-            #  value: ${DUMMY_PROVER:-1}
+            #  value: 1
             - name: ENABLE_FAUCET
               value: "1"
             - name: PARAMS_PATH
-              value: ${PARAMS_PATH:-/testnet/19.bin}
+              value: /testnet/19.bin
       restartPolicy: Always

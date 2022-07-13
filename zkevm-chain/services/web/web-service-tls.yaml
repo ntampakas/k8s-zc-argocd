@@ -17,4 +17,5 @@ spec:
   - name: https
     port: 443
     targetPort: 8000
+  externalTrafficPolicy: Local
   type: LoadBalancer

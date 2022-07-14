@@ -36,9 +36,9 @@ spec:
               value: '[::]:8545'
           resources:
             limits:
-              cpu: "2.0"
-              memory: 7Gi
+              cpu: "72.0"
+              memory: 143Gi
             requests:
-              cpu: "1"
-              memory: 4Gi
+              cpu: "40"
+              memory: 80Gi
       restartPolicy: Always

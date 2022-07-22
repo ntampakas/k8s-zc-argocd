@@ -30,10 +30,13 @@ spec:
              topologyKey: "prover"
       containers:
         - name: prover-rpcd
-          image: public.ecr.aws/s1x7c1c0/prover:latest
+          #image: public.ecr.aws/s1x7c1c0/prover:latest
+          image: public.ecr.aws/s1x7c1c0/prover:v2
           env:
             - name: BIND
               value: '[::]:8545'
+            - name: PROVERD_LOOKUP
+              value: prover-rpcd:8545
           resources:
             limits:
               cpu: "72.0"

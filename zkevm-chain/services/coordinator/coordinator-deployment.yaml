@@ -41,5 +41,5 @@ spec:
             - name: ENABLE_FAUCET
               value: "1"
             - name: PARAMS_PATH
-              value: /testnet/19.bin
+              value: /testnet/20.bin
       restartPolicy: Always

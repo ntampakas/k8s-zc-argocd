@@ -30,8 +30,7 @@ spec:
              topologyKey: "prover"
       containers:
         - name: prover-rpcd
-          #image: public.ecr.aws/s1x7c1c0/prover:latest
-          image: public.ecr.aws/s1x7c1c0/prover:v2
+          image: public.ecr.aws/s1x7c1c0/prover:latest
           env:
             - name: BIND
               value: '[::]:8545'

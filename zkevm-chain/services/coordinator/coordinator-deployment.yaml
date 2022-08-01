@@ -16,8 +16,7 @@ spec:
     spec:
       containers:
         - name: coordinator
-          #image: public.ecr.aws/s1x7c1c0/coordinator:latest
-          image: public.ecr.aws/s1x7c1c0/coordinator:v2
+          image: public.ecr.aws/s1x7c1c0/coordinator:latest
           env:
             - name: LISTEN
               value: '[::]:8545'

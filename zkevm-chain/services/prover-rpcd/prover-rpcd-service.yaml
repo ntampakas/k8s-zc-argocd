@@ -3,9 +3,8 @@ kind: Service
 metadata:
   name: prover-rpcd
 spec:
+  clusterIP: None
   ports:
     - port: 8545
   selector:
     run: prover-rpcd
-status:
-  loadBalancer: {}

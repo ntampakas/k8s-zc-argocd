@@ -3,9 +3,8 @@ kind: Service
 metadata:
   name: coordinator
 spec:
+  clusterIP: None
   ports:
     - port: 8545
   selector:
     run: coordinator
-status:
-  loadBalancer: {}

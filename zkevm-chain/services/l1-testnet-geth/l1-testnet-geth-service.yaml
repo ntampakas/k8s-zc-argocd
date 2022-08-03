@@ -3,9 +3,8 @@ kind: Service
 metadata:
   name: l1-testnet-geth
 spec:
+  clusterIP: None
   ports:
     - port: 8545
   selector:
     run: l1-testnet-geth
-status:
-  loadBalancer: {}

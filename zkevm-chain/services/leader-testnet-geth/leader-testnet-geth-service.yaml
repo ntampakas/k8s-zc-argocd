@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: leader-testnet-geth
 spec:
+  clusterIP: None
   ports:
     - name: "30303"
       port: 30303
@@ -11,5 +12,3 @@ spec:
       port: 8545
   selector:
     run: leader-testnet-geth
-status:
-  loadBalancer: {}

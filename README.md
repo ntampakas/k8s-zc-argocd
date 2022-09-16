@@ -1,6 +1,11 @@
 # zkevm-chain in k8s (non prod version)
 ## Deploy zkevm-chain + support services to kubernetes cluster
 
+## Deploy EBS CSI Driver
+   ```
+   # cd aux
+   # ./prepare_ebs_csi.sh
+   ```
 ## Deploy metrics server
    ```
    # kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml

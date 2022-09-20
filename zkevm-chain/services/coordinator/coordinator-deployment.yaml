@@ -18,27 +18,27 @@ spec:
         - name: coordinator
           image: public.ecr.aws/s1x7c1c0/coordinator:latest
           env:
-            - name: LISTEN
+            - name: COORDINATOR_LISTEN
               value: '[::]:8545'
-            - name: RPC_SERVER_NODES
+            - name: COORDINATOR_RPC_SERVER_NODES
               value: server-testnet-geth:8545
-            - name: L2_RPC_URL
+            - name: COORDINATOR_L2_RPC_URL
               value: http://leader-testnet-geth:8545
-            - name: L1_RPC_URL
+            - name: COORDINATOR_L1_RPC_URL
               value: http://l1-testnet-geth:8545
-            - name: L1_BRIDGE
+            - name: COORDINATOR_L1_BRIDGE
               value: 0x936a70c0b28532aa22240dce21f89a8399d6ac60
-            - name: L1_PRIV
+            - name: COORDINATOR_L1_PRIV
               valueFrom:
                 secretKeyRef:
                   name: leader-testnet-geth-secrets
                   key: miner_priv_key
-            - name: PROVER_RPCD_URL
+            - name: COORDINATOR_PROVER_RPCD_URL
               value: http://prover-rpcd:8545
-            - name: DUMMY_PROVER
+            - name: COORDINATOR_DUMMY_PROVER
               value: ${COORDINATOR_DUMMY_PROVER:-1}
-            - name: ENABLE_FAUCET
+            - name: COORDINATOR_ENABLE_FAUCET
               value: "1"
-            - name: PARAMS_PATH
+            - name: COORDINATOR_PARAMS_PATH
               value: ${PARAMS_PATH:-/testnet/}
       restartPolicy: Always

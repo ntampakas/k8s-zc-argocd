@@ -32,15 +32,17 @@ spec:
         - name: prover-rpcd
           image: public.ecr.aws/s1x7c1c0/prover:latest
           env:
-            - name: BIND
+            - name: PROVERD_BIND
               value: '[::]:8545'
             - name: PROVERD_LOOKUP
               value: prover-rpcd:8545
+            - name: PROVERD_ENABLE_CIRCUIT_INSTANCE
+              value: 0
           resources:
             limits:
-              cpu: "72.0"
-              memory: 143Gi
+              cpu: "2.0"
+              memory: 3.8Gi
             requests:
-              cpu: "40"
-              memory: 80Gi
+              cpu: "1.5"
+              memory: 3Gi
       restartPolicy: Always

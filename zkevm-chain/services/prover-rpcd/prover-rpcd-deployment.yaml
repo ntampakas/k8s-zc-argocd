@@ -37,11 +37,11 @@ spec:
             - name: PROVERD_LOOKUP
               value: prover-rpcd:8545
             - name: PROVERD_ENABLE_CIRCUIT_INSTANCE
-              value: 0
+              value: '0'
           resources:
             limits:
               cpu: "2.0"
-              memory: 3.8Gi
+              memory: 3800Mi
             requests:
               cpu: "1.5"
               memory: 3Gi
